@@ -1,14 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
-
 using UnityEngine.SceneManagement;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class GameManager : Photon.PunBehaviour {
+public class GameManager : MonoBehaviourPunCallbacks
+{
+    #region Photon Callbacks
 
-    #region Photon Messages
-    
-    //called when the local player left the room. We need to load the launcher scene.
+    /// Called when the local player left the room. We need to load the launcher scene.
     public override void OnLeftRoom()
     {
         SceneManager.LoadScene(0);
@@ -16,7 +17,9 @@ public class GameManager : Photon.PunBehaviour {
 
     #endregion
 
+
     #region Public Methods
+
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
@@ -24,16 +27,17 @@ public class GameManager : Photon.PunBehaviour {
 
     #endregion
 
-    #region Photon Messages
 
-    public override void OnPhotonPlayerConnected(PhotonPlayer other)
+    #region Private Methods
+
+    void LoadArena()
     {
-        Debug.Log("OnPhotonPlayerConnected() " + other.NickName);
-
-        if (PhotonNetwork.isMasterClient)
+        if (!PhotonNetwork.IsMasterClient)
         {
-            Debug.Log("OnPhotonPlayerConnected is MasterClient " + PhotonNetwork.isMasterClient);
+            Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
         }
+        Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
+        PhotonNetwork.LoadLevel("Room");
     }
 
     #endregion
