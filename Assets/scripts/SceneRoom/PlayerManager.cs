@@ -118,6 +118,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             return;
         }
+        // Picking up health
+        if (other.CompareTag("Health Pickup")) {
+            Health += 1f;
+            other.gameObject.SetActive(false);
+            return;
+        }
         // We are only interested in Beamers
         // we should be using tags but for the sake of distribution, let's simply check by name.
         if (!other.name.Contains("Beam"))
