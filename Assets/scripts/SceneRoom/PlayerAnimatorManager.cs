@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerAnimatorManager : MonoBehaviour
+public class PlayerAnimatorManager : MonoBehaviourPun
 {
     public float speed = 6f;            // The speed that the player will move at.
 
@@ -22,9 +23,13 @@ public class PlayerAnimatorManager : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody>();
     }
 
-
-    void FixedUpdate()
+    void Update()
     {
+        if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
+        {
+            return;
+        }
+
         // Store the input axes.
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
