@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -19,7 +20,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             // Network player, receive data
             this.IsFiring = (bool)stream.ReceiveNext();
-            this.Health = (float)stream.ReceiveNext();
+            this.Health = (int)stream.ReceiveNext();
         }
     }
 
@@ -31,8 +32,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [Tooltip("The Beams GameObject to control")]
     [SerializeField]
     private GameObject beams;
+
     //True, when the user is firing
     bool IsFiring;
+    bool dead;
 
     #endregion
 
@@ -40,10 +43,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     #region Public fields
 
     [Tooltip("The current Health of our player")]
-    public float Health = 1f;
+    public int Health = 10;
 
     [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
     public static GameObject LocalPlayerInstance;
+
+    public Slider healthSlider;
+    public GameObject DeadText;
 
     #endregion
 
@@ -53,6 +59,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         CameraWork _cameraWork = this.gameObject.GetComponent<CameraWork>();
 
+        
 
         if (_cameraWork != null)
         {
@@ -65,6 +72,17 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             Debug.LogError("<Color=Red><a>Missing</a></Color> CameraWork Component on playerPrefab.", this);
         }
+
+        if (photonView.IsMine)
+        {
+            if (GameObject.FindGameObjectWithTag("Health Slider"))
+            {
+                healthSlider = (Slider)FindObjectOfType(typeof(Slider));
+            }
+
+            DeadText.SetActive(false);
+        }
+
     }
 
     void Awake()
@@ -96,15 +114,26 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             ProcessInputs();
         }
 
-        if (Health <= 0f)
+        if (Health <= 0)
         {
             // TODO : replace with "ghost mode ?"
-            GameManager.Instance.LeaveRoom();
+            //GameManager.Instance.LeaveRoom();
+            dead = true;
+        }
+        else if (Health > 0)
+        {
+            dead = false;
+            DeadText.SetActive(false);
         }
         // trigger Beams active state
         if (beams != null && IsFiring != beams.activeSelf)
         {
             beams.SetActive(IsFiring);
+        }
+
+        if (dead == true)
+        {
+            DeadText.SetActive(true);
         }
     }
 
@@ -114,28 +143,32 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     /// One could move the collider further away to prevent this or check if the beam belongs to the player.
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("OnTriggerEnter");
         if (!photonView.IsMine)
         {
             return;
         }
         // Picking up health
-        if (other.CompareTag("Health Pickup")) {
-            Health += 1f;
+        if (other.gameObject.CompareTag("Health Pickup")) {
+            Health += 1;
             other.gameObject.SetActive(false);
-            return;
+
+            healthSlider.value = Health;
         }
         // We are only interested in Beamers
         // we should be using tags but for the sake of distribution, let's simply check by name.
-        if (!other.name.Contains("Beam"))
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            return;
+            Debug.Log("Pers 1 de vie");
+            Health -= 1;
+            healthSlider.value = Health;
         }
-        Health -= 0.1f;
+
     }
     /// MonoBehaviour method called once per frame for every Collider 'other' that is touching the trigger.
     /// We're going to affect health while the beams are touching the player
     /// <param name="other">Other.</param>
-    void OnTriggerStay(Collider other)
+    /*void OnTriggerStay(Collider other)
     {
         // we dont' do anything if we are not the local player.
         if (!photonView.IsMine)
@@ -144,13 +177,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         }
         // We are only interested in Beamers
         // we should be using tags but for the sake of distribution, let's simply check by name.
-        if (!other.name.Contains("Beam"))
+        if (!other.name.Contains("Enemy"))
         {
             return;
         }
         // we slowly affect health when beam is constantly hitting us, so player has to move to prevent death.
-        Health -= 0.1f * Time.deltaTime;
-    }
+        Health -= 1f * Time.deltaTime;
+    }*/
 
     #endregion
 
