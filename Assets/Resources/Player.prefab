@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1186858597163075128}
   m_Layer: 0
   m_Name: beams
-  m_TagString: Untagged
+  m_TagString: Friend
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -478,7 +478,7 @@ GameObject:
   - component: {fileID: 1456850605}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -560,7 +560,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beams: {fileID: 6575978869953442130}
-  Health: 1
+  Health: 10
+  healthSlider: {fileID: 5705573595742589648, guid: 6ca7016f10062446c8f04ceeacbc9f45,
+    type: 3}
+  DeadText: {fileID: 1655306073184334258, guid: 7f15a7839e9214a36ac847e6b1875311,
+    type: 3}
 --- !u!136 &5279537654984756796
 CapsuleCollider:
   m_ObjectHideFlags: 0
