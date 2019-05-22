@@ -1,10 +1,13 @@
 ﻿<Properties StartupConfiguration="{35796DC8-CFA0-D0F5-D72A-877E22EDF3C2}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/VolumetricLight/VolumetricLightRenderer.cs">
     <Files>
-      <File FileName="Assets/Scripts/SceneRoom/CameraWork.cs" Line="154" Column="5" />
-      <File FileName="Assets/Scripts/SceneRoom/PlayerManager.cs" Line="130" Column="15" />
+      <File FileName="Assets/Scripts/SceneRoom/CameraWork.cs" Line="154" Column="1" />
+      <File FileName="Assets/Scripts/SceneRoom/PlayerManager.cs" Line="92" Column="1" />
       <File FileName="Assets/Scripts/SceneRoom/PlayerAnimatorManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/GameManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/scripts/Enemies/EnemyMovement.cs" Line="47" Column="1" />
+      <File FileName="Assets/Environment/SineVFX/PostProcessing/Editor/PropertyDrawers/MinDrawer.cs" Line="3" Column="62" />
+      <File FileName="Assets/scripts/VolumetricLight/VolumetricLightRenderer.cs" Line="409" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
