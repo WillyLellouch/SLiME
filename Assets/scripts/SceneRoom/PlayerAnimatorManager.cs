@@ -69,6 +69,7 @@ public class PlayerAnimatorManager : MonoBehaviourPun
         // Perform the raycast and if it hits something on the floor layer...
         if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
         {
+            Debug.Log("inside If Turning");
             // Create a vector from the player to the point on the floor the raycast from the mouse hit.
             Vector3 playerToMouse = floorHit.point - transform.position;
 
