@@ -44,7 +44,11 @@ public class EnemyMovement : MonoBehaviour
               }
             }
           }
-            nav.SetDestination (target.position);
+        if (target != null)
+        { 
+            nav.SetDestination(target.position);
+        }
+
         /*}
         // Otherwise...
         else
