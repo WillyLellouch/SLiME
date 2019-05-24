@@ -548,6 +548,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  mouseSpeed: 3
+  player: {fileID: 8950489920287411508}
+  yourCam: {fileID: 5959664433032515474, guid: 4f500daa9e427474bb94f3a1f5055b00, type: 3}
 --- !u!114 &5603385591959852719
 MonoBehaviour:
   m_ObjectHideFlags: 0

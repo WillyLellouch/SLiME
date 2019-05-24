@@ -13,6 +13,10 @@ public class PlayerAnimatorManager : MonoBehaviourPun
     int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
     float camRayLength = 100f;          // The length of the ray from the camera into the scene.
 
+    public float mouseSpeed = 3;
+    public Transform player;
+    public Camera yourCam;
+
     void Awake()
     {
         // Create a layer mask for the floor layer.
@@ -60,28 +64,46 @@ public class PlayerAnimatorManager : MonoBehaviourPun
     void Turning()
     {
         Debug.Log("inside Turning");
+
+        float X = Input.GetAxis("Mouse X") * mouseSpeed;
+        float Y = Input.GetAxis("Mouse Y") * mouseSpeed;
+
+        player.Rotate(0, X, 0); // Player rotates on Y axis, your Cam is child, then rotates too
+
+
+        // To scurity check to not rotate 360º 
+        if (yourCam.transform.eulerAngles.x + (-Y) > 80 && yourCam.transform.eulerAngles.x + (-Y) < 280)
+        { }
+        else
+        {
+            yourCam.transform.RotateAround(player.position, yourCam.transform.right, -Y);
+        }
+
+        /*
         // Create a ray from the mouse cursor on screen in the direction of the camera.
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+        Plane plane = new Plane(Vector3.up, Vector3.up);
+        float distance = 0f;
         // Create a RaycastHit variable to store information about what was hit by the ray.
         RaycastHit floorHit;
 
         // Perform the raycast and if it hits something on the floor layer...
-        if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
+        if (plane.Raycast(camRay, out distance))
         {
             Debug.Log("inside If Turning");
             // Create a vector from the player to the point on the floor the raycast from the mouse hit.
-            Vector3 playerToMouse = floorHit.point - transform.position;
+            Vector3 playerToMouse = camRay.GetPoint(distance) - transform.position;
 
             // Ensure the vector is entirely along the floor plane.
-            playerToMouse.y = 0f;
+            //playerToMouse.y = 0f;
 
             // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
             Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
 
             // Set the player's rotation to this new rotation.
             playerRigidbody.MoveRotation(newRotation);
-        }
+        }*/
     }
 
     void Animating(float h, float v)
