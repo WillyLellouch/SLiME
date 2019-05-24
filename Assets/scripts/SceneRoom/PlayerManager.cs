@@ -29,13 +29,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     #region Private Fields
 
-    [Tooltip("The Beams GameObject to control")]
     [SerializeField]
-    private GameObject beams;
+    public GameObject projectile;
 
     //True, when the user is firing
     bool IsFiring;
     bool dead;
+    float fireRate = 0.33f;
+    float nextFire;
 
     #endregion
 
@@ -57,9 +58,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     void Start()
     {
+      nextFire = Time.time;
         CameraWork _cameraWork = this.gameObject.GetComponent<CameraWork>();
 
-        
+
 
         if (_cameraWork != null)
         {
@@ -85,16 +87,41 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     }
 
+    //shoots a bullet in the direction passed in
+            //we do not rely on the current turret rotation here, because we send the direction
+            //along with the shot request to the server to absolutely ensure a synced shot position
+            protected void Shoot(Vector2 direction = default(Vector2))
+            {
+              /*GameObject bullet = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
+              bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 2000);*/
+                //if shot delay is over
+                if (Time.time > nextFire)
+                {
+                    //set next shot timestamp
+                    nextFire = Time.time + fireRate;
+
+
+                    Vector3 playerPos = transform.position + new Vector3(0,1,0);
+                    Vector3 playerDirection = transform.forward;
+                    Quaternion playerRotation = transform.rotation;
+                    float spawnDistance = 2;
+
+                    Vector3 spawnPos = playerPos + playerDirection*spawnDistance;
+
+                    Instantiate(projectile, spawnPos, playerRotation);
+                    //GameObject bullet = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
+                    //bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 2000);
+                    //this.photonView.RPC("CmdShoot",RpcTarget.AllViaServer,transform.position,Quaternion.identity);
+                    //send current client position and turret rotation along to sync the shot position
+                    //also we are sending it as a short array (only x,z - skip y) to save additional bandwidth
+                    /*short[] pos = new short[] { (short)(transform.position.x * 10), (short)(transform.position.z * 10)};
+                    //send shot request with origin to server
+                    this.photonView.RPC("CmdShoot", RpcTarget.AllViaServer, pos, turretRotation);*/
+                }
+            }
+
     void Awake()
     {
-        if (beams == null)
-        {
-            Debug.LogError("<Color=Red><a>Missing</a></Color> Beams Reference.", this);
-        }
-        else
-        {
-            beams.SetActive(false);
-        }
 
         // #Important
         // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
@@ -125,11 +152,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             dead = false;
             DeadText.SetActive(false);
         }
-        // trigger Beams active state
-        if (beams != null && IsFiring != beams.activeSelf)
-        {
-            beams.SetActive(IsFiring);
+        if (IsFiring){
+          Shoot();
         }
+        // if (beams != null && IsFiring != beams.activeSelf)
+        // {
+        //     beams.SetActive(IsFiring);
+        // }
 
         if (dead == true)
         {

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Spit : MonoBehaviourPun
 {
-    public float speed = 10;
+    public float speed = 20f;
 
     public int damage = 3;
 
@@ -51,11 +51,11 @@ public class Spit : MonoBehaviourPun
 
     private void OnCollisionEnter(Collision collision)
     {
-        despawn();
+      despawn();
     }
 
     void despawn()
     {
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 }
