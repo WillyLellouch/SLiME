@@ -12,7 +12,7 @@ public class EnemyMovement : MonoBehaviour
     Transform target = null;
     private float time = 0.0f;
     public float timer = 0.1f;
-
+    public int Pv = 9;
 
     void Awake ()
     {
@@ -26,9 +26,10 @@ public class EnemyMovement : MonoBehaviour
     void Update ()
     {
         // If the enemy and the player have health left...
-        //if(enemyHealth.currentHealth > 0)
-        //{
-            // ... set the destination of the nav mesh agent to the player.
+       if(Pv<= 0)
+        {
+            Destroy(gameObject);
+        }
             time += Time.deltaTime;
 
             if (time >= timer){
@@ -56,5 +57,15 @@ public class EnemyMovement : MonoBehaviour
             // ... disable the nav mesh agent.
             nav.enabled = false;
         }*/
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+       
+        // Check if the class of the game object is spit
+        if(other.gameObject.GetComponent<Spit>())
+        {
+            Pv -= other.gameObject.GetComponent<Spit>().damage;
+        }
     }
 }
