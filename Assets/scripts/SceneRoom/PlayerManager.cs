@@ -8,6 +8,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 {
     #region IPunObservable implementation
 
+    public AudioClip spitSnd;
+
+    private AudioSource playerSrc;
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -58,6 +62,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     void Start()
     {
+        playerSrc = GetComponent<AudioSource>();
+        playerSrc.clip = spitSnd;
+
       nextFire = Time.time;
         CameraWork _cameraWork = this.gameObject.GetComponent<CameraWork>();
 
@@ -153,7 +160,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             DeadText.SetActive(false);
         }
         if (IsFiring){
-          Shoot();
+            playerSrc.clip = spitSnd;
+            playerSrc.Play();
+            Shoot();
+
         }
         // if (beams != null && IsFiring != beams.activeSelf)
         // {

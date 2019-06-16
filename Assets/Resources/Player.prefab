@@ -391,7 +391,8 @@ Transform:
   m_LocalRotation: {x: 0.44207188, y: -0.55188084, z: 0.44207188, w: 0.55188084}
   m_LocalPosition: {x: -0.007995777, y: -2.7755575e-19, z: 5.055414e-19}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 7827254022102416303}
   m_Father: {fileID: 8950489920287411492}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -559,6 +560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04e3b268371c401495bfd5c3c7c61ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spitSnd: {fileID: 8300000, guid: 74c4f85b524690a44835392b5fa09a87, type: 3}
   projectile: {fileID: 3595309820971251651, guid: bc0acc4421e37314a95034c5b8a1499f,
     type: 3}
   Health: 10
