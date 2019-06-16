@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1105,10 +1105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e3105cdc7e34ddd8a0570880ff7b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pvCache: {fileID: 0}
   maxPlayersPerRoom: 4
-  gameVersion: 1
-  isConnecting: 0
   controlPanel: {fileID: 37197554}
   progressLabel: {fileID: 233245577}
 --- !u!4 &1793322820

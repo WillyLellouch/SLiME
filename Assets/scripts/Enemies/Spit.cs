@@ -12,10 +12,6 @@ public class Spit : MonoBehaviourPun
 
     public float lifecycle = 1f;
 
-    public AudioSource spitSrcSound;
-
-    public AudioClip spitClip;
-
     private float despawnTime;
 
     private Rigidbody spitRigidBody;
@@ -34,8 +30,6 @@ public class Spit : MonoBehaviourPun
 
     void OnSpawn()
     {
-        spitSrcSound.clip = spitClip;
-        spitSrcSound.Play();
         spitRigidBody.velocity = speed * transform.forward;
         if(lifecycle > 0)
         {

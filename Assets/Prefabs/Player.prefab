@@ -132,8 +132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04e3b268371c401495bfd5c3c7c61ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slimeSrcSound: {fileID: 0}
-  spitClip: {fileID: 8300000, guid: 74c4f85b524690a44835392b5fa09a87, type: 3}
   projectile: {fileID: 3595309820971251651, guid: bc0acc4421e37314a95034c5b8a1499f,
     type: 3}
   Health: 1

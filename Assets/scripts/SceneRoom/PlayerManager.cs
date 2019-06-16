@@ -58,8 +58,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     void Start()
     {
-  
-        nextFire = Time.time;
+      nextFire = Time.time;
         CameraWork _cameraWork = this.gameObject.GetComponent<CameraWork>();
 
 
@@ -123,6 +122,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     void Awake()
     {
+
         // #Important
         // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
         if (photonView.IsMine)
@@ -135,8 +135,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     void Update()
-    { 
-
+    {
         if (photonView.IsMine)
         {
             ProcessInputs();
