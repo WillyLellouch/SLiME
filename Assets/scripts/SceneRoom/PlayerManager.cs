@@ -107,16 +107,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
                     float spawnDistance = 2;
 
                     Vector3 spawnPos = playerPos + playerDirection*spawnDistance;
-
-                    Instantiate(projectile, spawnPos, playerRotation);
-                    //GameObject bullet = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
-                    //bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 2000);
-                    //this.photonView.RPC("CmdShoot",RpcTarget.AllViaServer,transform.position,Quaternion.identity);
-                    //send current client position and turret rotation along to sync the shot position
-                    //also we are sending it as a short array (only x,z - skip y) to save additional bandwidth
-                    /*short[] pos = new short[] { (short)(transform.position.x * 10), (short)(transform.position.z * 10)};
-                    //send shot request with origin to server
-                    this.photonView.RPC("CmdShoot", RpcTarget.AllViaServer, pos, turretRotation);*/
+            
+                    GameObject bullet = Instantiate(projectile, spawnPos, Quaternion.identity) as GameObject;
+                    bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
                 }
             }
 
