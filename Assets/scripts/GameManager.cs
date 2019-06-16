@@ -14,9 +14,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Tooltip("The prefab to use for representing the player")]
     public GameObject playerPrefab;
 
+    [Tooltip("The prefab to use for representing the common enemies")]
+    public GameObject enemyPrefab;
+
     private void Start()
     {
         Instance = this;
+        spawnEnemies();
 
         if (PlayerManager.LocalPlayerInstance == null)
         {
@@ -64,6 +68,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
         PhotonNetwork.LoadLevel("Room");
+    }
+
+    void spawnEnemies(){
+      Debug.Log("Spawn Enemies");
+      PhotonNetwork.Instantiate(this.enemyPrefab.name, new Vector3(5f, 5f, 0f), Quaternion.identity, 0);
+      PhotonNetwork.Instantiate(this.enemyPrefab.name, new Vector3(0f, 0f, 0f), Quaternion.identity, 0);
+      PhotonNetwork.Instantiate(this.enemyPrefab.name, new Vector3(-5f, 5f, 0f), Quaternion.identity, 0);
     }
 
     #endregion
