@@ -10,7 +10,7 @@ public class Spit : MonoBehaviourPun
 
     public int damage = 3;
 
-    public float lifecycle = 1f;
+    public float lifecycle = 10f;
 
     private float despawnTime;
 
@@ -50,13 +50,13 @@ public class Spit : MonoBehaviourPun
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
       despawn();
     }
 
     void despawn()
     {
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }

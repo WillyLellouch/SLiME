@@ -5,7 +5,70 @@ using Photon.Pun;
 
 public class PlayerAnimatorManager : MonoBehaviourPun
 {
-    public float speed = 6f;            // The speed that the player will move at.
+    #region MonoBehaviour Callbacks
+
+    public float Speed = 4 ;
+    Animator animator;
+    Vector3 move;
+    float z;
+    Rigidbody playerRigidbody;
+
+    // Use this for initialization
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        playerRigidbody = GetComponent<Rigidbody>();
+        if (!animator)
+        {
+            Debug.LogError("PlayerAnimatorManager is Missing Animator Component", this);
+        }
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (!animator)
+        {
+            return;
+        }
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        /*if (v < 0)
+        {
+            v = 0;
+        }*/
+        Debug.Log("Avant" + h + "+" + v);
+
+        movement(h,v);
+
+    }
+
+    void movement(float horizontal, float vertical)
+    {
+        if ((horizontal != 0f) || (vertical != 0f))
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+
+        horizontal = horizontal /8f;
+        vertical = vertical / 8f;
+
+        move.Set(horizontal, 0f, vertical);
+
+        Debug.Log("Après" + horizontal + "+" + vertical);
+
+        playerRigidbody.MovePosition(transform.position + move);
+    }
+
+
+    #endregion
+
+    /*public float speed = 6f;            // The speed that the player will move at.
 
     Vector3 movement;                   // The vector to store the direction of the player's movement.
     Animator anim;                      // Reference to the animator component.
@@ -60,6 +123,7 @@ public class PlayerAnimatorManager : MonoBehaviourPun
     void Turning()
     {
         Debug.Log("inside Turning");
+
         // Create a ray from the mouse cursor on screen in the direction of the camera.
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -69,7 +133,6 @@ public class PlayerAnimatorManager : MonoBehaviourPun
         // Perform the raycast and if it hits something on the floor layer...
         if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
         {
-            Debug.Log("inside If Turning");
             // Create a vector from the player to the point on the floor the raycast from the mouse hit.
             Vector3 playerToMouse = floorHit.point - transform.position;
 
@@ -81,6 +144,7 @@ public class PlayerAnimatorManager : MonoBehaviourPun
 
             // Set the player's rotation to this new rotation.
             playerRigidbody.MoveRotation(newRotation);
+
         }
     }
 
@@ -92,5 +156,5 @@ public class PlayerAnimatorManager : MonoBehaviourPun
 
         // Tell the animator whether or not the player is walking.
         anim.SetBool("IsWalking", walking);
-    }
+    }*/
 }
