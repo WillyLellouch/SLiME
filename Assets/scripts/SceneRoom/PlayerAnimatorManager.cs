@@ -5,17 +5,76 @@ using Photon.Pun;
 
 public class PlayerAnimatorManager : MonoBehaviourPun
 {
-    public float speed = 6f;            // The speed that the player will move at.
+    #region MonoBehaviour Callbacks
+
+    public float Speed = 4 ;
+    Animator animator;
+    Vector3 move;
+    float z;
+    Rigidbody playerRigidbody;
+
+    // Use this for initialization
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        playerRigidbody = GetComponent<Rigidbody>();
+        if (!animator)
+        {
+            Debug.LogError("PlayerAnimatorManager is Missing Animator Component", this);
+        }
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (!animator)
+        {
+            return;
+        }
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        /*if (v < 0)
+        {
+            v = 0;
+        }*/
+        Debug.Log("Avant" + h + "+" + v);
+
+        movement(h,v);
+
+    }
+
+    void movement(float horizontal, float vertical)
+    {
+        if ((horizontal != 0f) || (vertical != 0f))
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+
+        horizontal = horizontal /8f;
+        vertical = vertical / 8f;
+
+        move.Set(horizontal, 0f, vertical);
+
+        Debug.Log("Après" + horizontal + "+" + vertical);
+
+        playerRigidbody.MovePosition(transform.position + move);
+    }
+
+
+    #endregion
+
+    /*public float speed = 6f;            // The speed that the player will move at.
 
     Vector3 movement;                   // The vector to store the direction of the player's movement.
     Animator anim;                      // Reference to the animator component.
     Rigidbody playerRigidbody;          // Reference to the player's rigidbody.
     int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
     float camRayLength = 100f;          // The length of the ray from the camera into the scene.
-
-    public float mouseSpeed = 3;
-    public Transform player;
-    public Camera yourCam;
 
     void Awake()
     {
@@ -65,45 +124,28 @@ public class PlayerAnimatorManager : MonoBehaviourPun
     {
         Debug.Log("inside Turning");
 
-        float X = Input.GetAxis("Mouse X") * mouseSpeed;
-        float Y = Input.GetAxis("Mouse Y") * mouseSpeed;
-
-        player.Rotate(0, X, 0); // Player rotates on Y axis, your Cam is child, then rotates too
-
-
-        // To scurity check to not rotate 360º 
-        if (yourCam.transform.eulerAngles.x + (-Y) > 80 && yourCam.transform.eulerAngles.x + (-Y) < 280)
-        { }
-        else
-        {
-            yourCam.transform.RotateAround(player.position, yourCam.transform.right, -Y);
-        }
-
-        /*
         // Create a ray from the mouse cursor on screen in the direction of the camera.
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        Plane plane = new Plane(Vector3.up, Vector3.up);
-        float distance = 0f;
         // Create a RaycastHit variable to store information about what was hit by the ray.
         RaycastHit floorHit;
 
         // Perform the raycast and if it hits something on the floor layer...
-        if (plane.Raycast(camRay, out distance))
+        if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
         {
-            Debug.Log("inside If Turning");
             // Create a vector from the player to the point on the floor the raycast from the mouse hit.
-            Vector3 playerToMouse = camRay.GetPoint(distance) - transform.position;
+            Vector3 playerToMouse = floorHit.point - transform.position;
 
             // Ensure the vector is entirely along the floor plane.
-            //playerToMouse.y = 0f;
+            playerToMouse.y = 0f;
 
             // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
             Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
 
             // Set the player's rotation to this new rotation.
             playerRigidbody.MoveRotation(newRotation);
-        }*/
+
+        }
     }
 
     void Animating(float h, float v)
@@ -114,5 +156,5 @@ public class PlayerAnimatorManager : MonoBehaviourPun
 
         // Tell the animator whether or not the player is walking.
         anim.SetBool("IsWalking", walking);
-    }
+    }*/
 }
