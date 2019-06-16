@@ -14,6 +14,12 @@ public class EnemyMovement : MonoBehaviour
     public float timer = 0.1f;
     public int Pv = 9;
 
+    public AudioClip enemyHit;
+    public AudioClip playerHit;
+
+    private AudioSource enemySrc;
+
+
     void Awake ()
     {
         // Set up the references.
@@ -22,9 +28,19 @@ public class EnemyMovement : MonoBehaviour
         nav = GetComponent <NavMeshAgent> ();
     }
 
+    private void Start()
+    {
+        enemySrc = GetComponent<AudioSource>();
+
+        Debug.Log("Etat de la source" + enemySrc);
+
+        enemySrc.clip = playerHit;
+    }
+
 
     void Update ()
     {
+
         // If the enemy and the player have health left...
        if(Pv<= 0)
         {
@@ -65,7 +81,15 @@ public class EnemyMovement : MonoBehaviour
         // Check if the class of the game object is spit
         if(other.gameObject.GetComponent<Spit>())
         {
+            enemySrc.clip = enemyHit;
+            enemySrc.Play();
             Pv -= other.gameObject.GetComponent<Spit>().damage;
+        }
+
+        if(other.gameObject.GetComponent<PlayerManager>())
+        {
+            enemySrc.clip = playerHit;
+            enemySrc.Play();
         }
     }
 }

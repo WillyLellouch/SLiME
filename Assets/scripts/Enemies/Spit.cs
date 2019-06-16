@@ -21,6 +21,7 @@ public class Spit : MonoBehaviourPun
     [HideInInspector]
     public GameObject owner;
 
+
     void Awake()
     {
         spitRigidBody = GetComponent<Rigidbody>();
