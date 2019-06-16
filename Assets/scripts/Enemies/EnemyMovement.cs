@@ -9,6 +9,10 @@ public class EnemyMovement : MonoBehaviour
     //EnemyHealth enemyHealth;        // Reference to this enemy's health.
     NavMeshAgent nav;               // Reference to the nav mesh agent.
 
+    public AudioClip playerHited;
+    public AudioClip enemyHited;
+    public AudioSource musicSource;
+
     Transform target = null;
     private float time = 0.0f;
     public float timer = 0.1f;
@@ -20,6 +24,11 @@ public class EnemyMovement : MonoBehaviour
         players = GameObject.FindGameObjectsWithTag("Player");
         //enemyHealth = GetComponent <EnemyHealth> ();
         nav = GetComponent <NavMeshAgent> ();
+    }
+
+    void Start()
+    {
+        musicSource.clip = playerHited;   
     }
 
 
@@ -61,11 +70,17 @@ public class EnemyMovement : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-       
+        musicSource.clip = enemyHited;
         // Check if the class of the game object is spit
         if(other.gameObject.GetComponent<Spit>())
         {
+            musicSource.Play();
             Pv -= other.gameObject.GetComponent<Spit>().damage;
+        }
+
+        if(other.gameObject.GetComponent<PlayerManager>())
+        {
+            musicSource.Play();
         }
     }
 }
