@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::///
+///       Role: Manages Bonus Pickup animation                                    ///
+///       Authors: Willy Lellouch                                                 ///
+///                                                                               ///
+///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::///
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

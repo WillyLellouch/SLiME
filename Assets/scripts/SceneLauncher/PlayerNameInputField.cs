@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::///
+///       Role: Manages Naming players                                            ///
+///       Authors:                                                                ///
+///                                                                               ///
+///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::///
+
+using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;

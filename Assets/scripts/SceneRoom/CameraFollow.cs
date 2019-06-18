@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::///
+///       Role: Manages the following of players by the Camera                    ///
+///       Authors:                                                                ///
+///                                                                               ///
+///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::///
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;

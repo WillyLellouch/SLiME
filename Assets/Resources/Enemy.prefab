@@ -1624,7 +1624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 0.1
-  Pv: 9
+  pv: 9
   enemyHit: {fileID: 8300000, guid: 919dbec549808d64f808c0aeb38040d3, type: 3}
   playerHit: {fileID: 8300000, guid: 1a1ea192a3a0b0f4f94cc70f2e7eefb6, type: 3}
 --- !u!136 &6930390243278051461

@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::///
+///       Role: Manages Enemy life                                                ///
+///       Authors:                                                                ///
+///                                                                               ///
+///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::///
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
  

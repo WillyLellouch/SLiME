@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::///
+///       Role: Manages Enemy behaviour                                           ///
+///       Authors:                                                                ///
+///                                                                               ///
+///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::///
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -6,13 +12,12 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
     GameObject[] players;               // Reference to the player's position.
-    //EnemyHealth enemyHealth;        // Reference to this enemy's health.
     NavMeshAgent nav;               // Reference to the nav mesh agent.
 
     Transform target = null;
     private float time = 0.0f;
     public float timer = 0.1f;
-    public int Pv = 9;
+    public int pv = 9;
 
     public AudioClip enemyHit;
     public AudioClip playerHit;
@@ -24,7 +29,6 @@ public class EnemyMovement : MonoBehaviour
     {
         // Set up the references.
         players = GameObject.FindGameObjectsWithTag("Player");
-        //enemyHealth = GetComponent <EnemyHealth> ();
         nav = GetComponent <NavMeshAgent> ();
     }
 
@@ -42,37 +46,31 @@ public class EnemyMovement : MonoBehaviour
     {
 
         // If the enemy and the player have health left...
-       if(Pv<= 0)
-        {
+       if(pv<= 0)
+       {
             Destroy(gameObject);
-        }
+       }
             time += Time.deltaTime;
 
             if (time >= timer){
-              time = 0.0f;
-            Vector3 position = nav.transform.position;
-            float minDist = Mathf.Infinity;
-            foreach (GameObject g in players){
-              Transform t = g.transform;
-              float dist = Vector3.Distance(t.position, position);
-              if (dist < minDist){
-                target = t;
-                minDist = dist;
-              }
+                time = 0.0f;
+                Vector3 position = nav.transform.position;
+                float minDist = Mathf.Infinity;
+                foreach (GameObject g in players){
+                    Transform t = g.transform;
+                    float dist = Vector3.Distance(t.position, position);
+                    if (dist < minDist)
+                    {
+                        target = t;
+                        minDist = dist;
+                    }                
+                }
             }
-          }
+
         if (target != null)
         { 
             nav.SetDestination(target.position);
         }
-
-        /*}
-        // Otherwise...
-        else
-        {
-            // ... disable the nav mesh agent.
-            nav.enabled = false;
-        }*/
     }
 
     public void OnTriggerEnter(Collider other)
@@ -83,7 +81,7 @@ public class EnemyMovement : MonoBehaviour
         {
             enemySrc.clip = enemyHit;
             enemySrc.Play();
-            Pv -= other.gameObject.GetComponent<Spit>().damage;
+            pv -= other.gameObject.GetComponent<Spit>().damage;
         }
 
         if(other.gameObject.GetComponent<PlayerManager>())

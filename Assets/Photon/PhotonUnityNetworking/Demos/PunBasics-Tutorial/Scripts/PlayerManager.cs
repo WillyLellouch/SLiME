@@ -23,7 +23,7 @@ namespace Photon.Pun.Demo.PunBasics
     {
         #region Public Fields
 
-        [Tooltip("The current Health of our player")]
+        [Tooltip("The current health of our player")]
         public float Health = 1f;
 
         [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
@@ -149,7 +149,7 @@ namespace Photon.Pun.Demo.PunBasics
 
         /// <summary>
         /// MonoBehaviour method called when the Collider 'other' enters the trigger.
-        /// Affect Health of the Player if the collider is a beam
+        /// Affect health of the Player if the collider is a beam
         /// Note: when jumping and firing at the same, you'll find that the player's own beam intersects with itself
         /// One could move the collider further away to prevent this or check if the beam belongs to the player.
         /// </summary>
