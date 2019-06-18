@@ -1,6 +1,6 @@
 ﻿///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::///
 ///       Role: Manages Players Functionalities                                   ///
-///       Authors: Willy Lellouch                                                 ///
+///       Authors: Commun                                                         ///
 ///                                                                               ///
 ///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::///
 
@@ -100,7 +100,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 
     }
 
-            //shoots a bullet in the direction passed in
+    //shoots a bullet in the direction passed in
     protected void Shoot(Vector2 direction = default(Vector2))
     {
               

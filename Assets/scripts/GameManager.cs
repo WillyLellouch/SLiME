@@ -1,4 +1,10 @@
-﻿using System;
+﻿///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::///
+///       Role: Manages Launcher                                                  ///
+///       Authors: Julie Couture, Aurelien Tauvy                                  ///
+///                                                                               ///
+///:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::///
+
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
